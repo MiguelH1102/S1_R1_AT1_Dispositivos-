@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ImageBackground, Image,
-  StatusBar
+  StatusBar, KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 
 export default function App() {
@@ -21,11 +22,13 @@ export default function App() {
   };
 
   return (
+    <KeyboardAvoidingView style={styles.safeArea} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}>
     <ImageBackground source={require('./assets/eae.png')} style={styles.fundo}>
+    <Image source={require('./assets/logo.png')} style={styles.logo} />
       <StatusBar barStyle="light-content" />
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      
 
-      <View style={styles.card}>
+      <View style={styles.login}>
 
         <TextInput placeholder="Email" placeholderTextColor="#8a8a8a" style={styles.input} onChangeText={setEmail} keyboardType="email-address" />
 
@@ -39,6 +42,7 @@ export default function App() {
 
       </View>
     </ImageBackground>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -51,34 +55,26 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
     resizeMode: 'contain',
-    marginBottom: 30,
   },
 
-  card: {
+  login: {
     width: '85%',
     padding: 30,
-    borderRadius: 20,
+    borderRadius: 30,
     backgroundColor: 'rgba(20,20,20,0.95)',
     alignItems: 'center',
-  },
-
-  titulo: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 25,
   },
 
   input: {
     width: '100%',
     backgroundColor: '#1a1a1a',
     color: '#fff',
-    padding: 15,
+    padding: 5,
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 12,
     borderWidth: 1,
     borderColor: '#2e2e2e',
   },
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
   botao: {
     width: '100%',
     backgroundColor: '#0e5cff',
-    padding: 15,
+    padding: 5,
     borderRadius: 10,
     marginTop: 10,
     alignItems: 'center',
@@ -99,8 +95,12 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#0e5cff',
-    marginTop: 15,
-    fontSize: 14,
+    marginTop: 10,
+    fontSize: 10,
+  },
+  safeArea:{
+    flex: 1,
+    backgroundColor: '#ffffff'
   }
 
 });
